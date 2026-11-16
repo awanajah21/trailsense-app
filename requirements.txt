@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+gpxpy
+numpy
+scikit-learn
+python-multipart
+pydantic
+python-dotenv
+groq
+supabase
