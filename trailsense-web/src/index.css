@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@layer base {
+  /* Mengatur CSS Variables sesuai spesifikasi TrailSense UI */
+  :root {
+    --color-primary: #16A34A; /* */
+    --color-primary-hover: #15803D; /* */
+    --color-bg: #F8FAFC; /*[cite: 1] */
+    --color-surface: #FFFFFF; /*[cite: 1] */
+    --color-text: #111827; /*[cite: 1] */
+    --color-text-secondary: #6B7280; /*[cite: 1] */
+    --color-border: #E5E7EB; /*[cite: 1] */
+    --color-success: #22C55E; /*[cite: 1] */
+    --color-warning: #F59E0B; /*[cite: 1] */
+    --color-danger: #EF4444; /*[cite: 1] */
+    --color-info: #3B82F6; /*[cite: 1] */
+    
+    --radius-sm: 8px; /*[cite: 1] */
+    --radius-md: 12px; /*[cite: 1] */
+    --radius-lg: 16px; /*[cite: 1] */
+    --radius-xl: 20px; /*[cite: 1] */
+  }
+
+  body {
+    /* Menerapkan font Inter dan latar belakang kanvas aplikasi[cite: 1] */
+    @apply font-sans antialiased;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+}
+
+@layer utilities {
+  /* Utilitas untuk menyembunyikan scrollbar bawaan yang tebal */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

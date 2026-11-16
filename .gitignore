@@ -1,0 +1,19 @@
+# Lingkungan Python & Virtual Environment
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Dependensi & Hasil Build React/Vite
+node_modules/
+dist/
+
+# Kunci Rahasia (WAJIB DIBLOKIR AGAR TIDAK BOCOR KE PUBLIK)
+.env
+.env.local
+.env.production
+
+# File Sampah Sistem & Editor
+.DS_Store
+Thumbs.db
+.vscode/

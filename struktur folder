@@ -1,0 +1,34 @@
+trailsense/
+├── main.py                     # Entry point FastAPI untuk backend
+├── __pycache__/
+├── core/                       # Mesin Komputasi & Logika AI
+│   ├── __init__.py
+│   ├── ai_model.py             # Algoritma K-Means Clustering
+│   ├── gpx_parser.py           # Ekstraksi koordinat & elevasi rute
+│   ├── segmenter.py            # Logika pemotongan rute (Directional Merging)
+│   └── terrain_analyzer.py     # Filter topografi
+├── models/                     # Skema data (Pydantic schemas)
+│
+└── trailsense-web/             # Antarmuka Web (React + Vite)
+    ├── dist/
+    ├── node_modules/
+    ├── public/
+    ├── index.html
+    ├── .gitignore
+    ├── .oxlintrc.json
+    └── src/
+        ├── assets/
+        ├── components/         # Pecahan UI (Dapat digunakan ulang)
+        │   ├── AIInsightCard.jsx
+        │   └── modals/         # [BARU] Sub-folder khusus pop-up agar rapi
+        │       ├── GpxUploadModal.jsx
+        │       ├── RaceDetailsModal.jsx
+        │       └── WelcomeModal.jsx
+        ├── pages/              # [BARU] Wadah untuk setiap halaman penuh
+        │   ├── HomePage.jsx
+        │   ├── DashboardPage.jsx
+        │   └── HelpPage.jsx
+        ├── App.css
+        ├── App.jsx             # Dirigen / Pengatur Routing (Navigasi)
+        ├── index.css
+        └── main.jsx
