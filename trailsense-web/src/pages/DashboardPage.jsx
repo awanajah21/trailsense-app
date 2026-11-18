@@ -37,7 +37,10 @@ export default function DashboardPage({ sessionData, onBackHome }) {
       formData.append('raceDate', sessionData.raceDate || "-");
 
       try {
-        const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+        // Mengutamakan VITE_API_URL, dan langsung fallback ke server produksi PythonAnywhere
+        const rawApiUrl = import.meta.env.VITE_API_URL || 'https://trailsense.pythonanywhere.com';
+        const API_URL = rawApiUrl.replace(/\/$/, '');
+
         const response = await fetch(`${API_URL}/api/analyze-route`, {
           method: 'POST',
           body: formData,
