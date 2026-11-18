@@ -10,10 +10,6 @@ from core.segmenter import RouteSegmenter
 from core.ai_model import HazardAnalyzer
 from core.groq_coach import generate_ai_coach_summary
 
-# INISIALISASI KLIEN SUPABASE
-SUPABASE_URL = os.getenv("SUPABASE_URL", "https://ucoraoccxrbfxbnyyxnz.supabase.co")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjb3Jhb2NjeHJiZnhibnl5eG56Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgwODc1NjksImV4cCI6MjEwMzY2MzU2OX0.tb2HI2ft0nHzpPR2o6TifqqDmMQ4or5BTB4g6VC25V8") 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = FastAPI(title="TrailSense AI API")
 
