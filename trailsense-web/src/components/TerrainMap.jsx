@@ -4,14 +4,14 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
 
 // 1. Impor instans maplibre-gl dan URL worker CSP[cite: 6]
-import maplibregl from 'maplibre-gl';[cite: 6]
-import workerUrl from 'maplibre-gl/dist/maplibre-gl-csp-worker.js?url';[cite: 6]
+import maplibregl from 'maplibre-gl';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-csp-worker.js?url';
 
 // 2. Kunci URL Web Worker secara eksplisit agar Vite memuatnya sebagai aset[cite: 6]
-if (typeof maplibregl.setWorkerUrl === 'function') {[cite: 6]
-  maplibregl.setWorkerUrl(workerUrl);[cite: 6]
-} else {[cite: 6]
-  maplibregl.workerUrl = workerUrl;[cite: 6]
+if (typeof maplibregl.setWorkerUrl === 'function') {
+  maplibregl.setWorkerUrl(workerUrl);
+} else {
+  maplibregl.workerUrl = workerUrl;
         
 export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId }) {
   const mapRef = useRef();
