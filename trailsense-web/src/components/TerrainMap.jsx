@@ -1,11 +1,24 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+// 1. IMPOR INSTANS MAPLIBRE & URL WORKER SECARA EKSPLISIT
 import maplibregl from 'maplibre-gl';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-csp-worker.js?url';
-import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl/maplibre';
-import 'maplibre-gl/dist/maplibre-gl.css';
-import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
+import Map, {
+  NavigationControl,
+  Source,
+  Layer,
+  Marker
+} from 'react-map-gl/maplibre';
 
-// FIX UTAMA: Kunci URL Worker secara eksplisit agar Vite tidak memunculkan error merah
+import 'maplibre-gl/dist/maplibre-gl.css';
+
+import {
+  Layers,
+  Mountain,
+  Map as MapIcon,
+  X
+} from 'lucide-react';
+
+// 2. KUNCI URL WORKER AGAR VITE TIDAK KEHILANGAN JEJAK
 if (typeof maplibregl.setWorkerUrl === 'function') {
   maplibregl.setWorkerUrl(workerUrl);
 } else {
@@ -29,7 +42,7 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
 
     const features = routeData.segments.map((seg) => {
       const segmentPoints = routeData.chart_profile.filter(p => p.segment_id === seg.segment_id);
-      const coordinates = segmentPoints.map(p => [Number(p.lon), Number(p.lat)]);
+      const coordinates = segmentPoints.map(p => [p.lon, p.lat]);
 
       return {
         type: 'Feature',
@@ -114,14 +127,15 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
     }
   }, [is3D]);
 
-  const initialLongitude = Number(routeData?.chart_profile?.[0]?.lon) || 106.90511;
-  const initialLatitude = Number(routeData?.chart_profile?.[0]?.lat) || -6.59082;
+  const initialLongitude = routeData?.chart_profile?.[0]?.lon || 106.90511;
+  const initialLatitude = routeData?.chart_profile?.[0]?.lat || -6.59082;
 
   return (
     <div className="w-full h-full relative rounded-2xl overflow-hidden group bg-slate-900">
       
       {/* PANEL KONTROL MAP COMPACT (MOBILE FRIENDLY) */}
       <div className="absolute top-4 right-4 z-10 flex flex-col items-end gap-2">
+        {/* Tombol Toggle Fab */}
         <button 
           onClick={() => setIsLayerMenuOpen(!isLayerMenuOpen)}
           className="bg-slate-900/90 hover:bg-slate-800 text-slate-200 p-2.5 rounded-xl border border-slate-700 shadow-xl backdrop-blur-md transition-colors flex items-center justify-center"
@@ -129,6 +143,7 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
           {isLayerMenuOpen ? <X className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
         </button>
 
+        {/* Kontainer Dropdown Peta */}
         <div className={`bg-slate-900/90 backdrop-blur-md border border-slate-700 p-2 rounded-xl shadow-2xl flex flex-col gap-1 transition-all duration-200 origin-top-right ${isLayerMenuOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}>
           <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-2 pt-1 pb-2">Topologi</div>
           <button onClick={() => { setMapMode('topo-2d'); setIsLayerMenuOpen(false); }} className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold transition-all ${mapMode === 'topo-2d' ? 'bg-[#1E3A8A] text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
