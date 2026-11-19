@@ -1,29 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-// 1. IMPOR INSTANS MAPLIBRE & URL WORKER SECARA EKSPLISIT
-import maplibregl from 'maplibre-gl';
-import workerUrl from 'maplibre-gl/dist/maplibre-gl-csp-worker.js?url';
-import Map, {
-  NavigationControl,
-  Source,
-  Layer,
-  Marker
-} from 'react-map-gl/maplibre';
-
+import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
-
-import {
-  Layers,
-  Mountain,
-  Map as MapIcon,
-  X
-} from 'lucide-react';
-
-// 2. KUNCI URL WORKER AGAR VITE TIDAK KEHILANGAN JEJAK
-if (typeof maplibregl.setWorkerUrl === 'function') {
-  maplibregl.setWorkerUrl(workerUrl);
-} else {
-  maplibregl.workerUrl = workerUrl;
-}
+import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
 
 export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId }) {
   const mapRef = useRef();
@@ -163,6 +141,12 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
         </div>
       </div>
 
+      <Map
+        ref={mapRef}
+        initialViewState={{ longitude: initialLongitude, latitude: initialLatitude, zoom: 13, pitch: 65, bearing: 0 }}
+        mapStyle={currentStyle}
+        style={{ width: '100%', height: '100%' }}
+      >
         <NavigationControl position="bottom-right" visualizePitch={true} />
         
         {geoJsonRoute && (
