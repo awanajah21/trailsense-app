@@ -6,10 +6,8 @@ import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
 export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId }) {
   const mapRef = useRef();
   const [mapMode, setMapMode] = useState('topo-3d');
-  
   const [isLayerMenuOpen, setIsLayerMenuOpen] = useState(false);
 
-  // Penambahan optional chaining (?.) untuk mencegah crash jika data dari backend terlambat dimuat
   const startPoint = routeData?.chart_profile?.[0];
   const endPoint = routeData?.chart_profile?.[routeData?.chart_profile?.length - 1];
 
