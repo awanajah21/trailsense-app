@@ -33,7 +33,7 @@ export default function HomePage({
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-8 h-full flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer">
             <img
-    src="/logo.png"
+    src="/favicon.png"
     alt="Logo TrailSense"
     className="w-7 h-7 object-contain rounded-md"
   />
