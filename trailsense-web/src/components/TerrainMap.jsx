@@ -3,12 +3,16 @@ import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl/mapl
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
 
-// [BARU] Impor worker CSP resmi dari MapLibre menggunakan tag ?worker milik Vite
-import MaplibreWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker?worker';
+// 1. Impor instans maplibre-gl dan URL worker CSP[cite: 6]
+import maplibregl from 'maplibre-gl';[cite: 6]
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-csp-worker.js?url';[cite: 6]
 
-// [BARU] Kunci worker agar Vite membundelnya secara langsung tanpa salah URL di Vercel produksi
-maplibregl.workerClass = MaplibreWorker;
-
+// 2. Kunci URL Web Worker secara eksplisit agar Vite memuatnya sebagai aset[cite: 6]
+if (typeof maplibregl.setWorkerUrl === 'function') {[cite: 6]
+  maplibregl.setWorkerUrl(workerUrl);[cite: 6]
+} else {[cite: 6]
+  maplibregl.workerUrl = workerUrl;[cite: 6]
+        
 export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId }) {
   const mapRef = useRef();
   const [mapMode, setMapMode] = useState('topo-3d');
