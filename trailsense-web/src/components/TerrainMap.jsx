@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import * as maplibregl from 'maplibre-gl'
-import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl/maplibre';
+import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
 
