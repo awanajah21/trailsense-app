@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import maplibregl from "maplibre-gl/dist/maplibre-gl.js";
-import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl/maplibre'
+import * as maplibregl from 'maplibre-gl';
+import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
 
-// Bypass bundler Vite dengan memanggil worker langsung dari CDN Unpkg
-maplibregl.workerUrl = 'https://unpkg.com/maplibre-gl/dist/maplibre-gl-worker.js';
+// // Bypass bundler Vite dengan memanggil worker langsung dari CDN Unpkg
+// maplibregl.workerUrl = 'https://unpkg.com/maplibre-gl/dist/maplibre-gl-worker.js';
 
 export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId }) {
   const mapRef = useRef();
