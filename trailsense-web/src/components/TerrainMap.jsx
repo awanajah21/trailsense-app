@@ -1,26 +1,20 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import * as maplibregl from 'maplibre-gl';
-import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl';
+import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
-
-// // Bypass bundler Vite dengan memanggil worker langsung dari CDN Unpkg
-// maplibregl.workerUrl = 'https://unpkg.com/maplibre-gl/dist/maplibre-gl-worker.js';
 
 export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId }) {
   const mapRef = useRef();
   const [mapMode, setMapMode] = useState('topo-3d');
   
-  // STATE BARU UNTUK KONTROL TOGGLE MENU MAP
   const [isLayerMenuOpen, setIsLayerMenuOpen] = useState(false);
 
-  // Menarik titik koordinat Start dan Finish dari data mentah
+  // Penambahan optional chaining (?.) untuk mencegah crash jika data dari backend terlambat dimuat
   const startPoint = routeData?.chart_profile?.[0];
-  const endPoint = routeData?.chart_profile?.[routeData.chart_profile.length - 1];
+  const endPoint = routeData?.chart_profile?.[routeData?.chart_profile?.length - 1];
 
-  // Konversi data backend menjadi GeoJSON
   const geoJsonRoute = useMemo(() => {
-    if (!routeData || !routeData.segments) return null;
+    if (!routeData || !routeData.segments || !routeData.chart_profile) return null;
 
     const features = routeData.segments.map((seg) => {
       const segmentPoints = routeData.chart_profile.filter(p => p.segment_id === seg.segment_id);
@@ -42,7 +36,6 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
     return { type: 'FeatureCollection', features };
   }, [routeData]);
 
-  // Styling Dinamis WebGL Murni
   const routeLayer = {
     id: 'route-line',
     type: 'line',
@@ -115,9 +108,7 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
   return (
     <div className="w-full h-full relative rounded-2xl overflow-hidden group bg-slate-900">
       
-      {/* PANEL KONTROL MAP COMPACT (MOBILE FRIENDLY) */}
       <div className="absolute top-4 right-4 z-10 flex flex-col items-end gap-2">
-        {/* Tombol Toggle Fab */}
         <button 
           onClick={() => setIsLayerMenuOpen(!isLayerMenuOpen)}
           className="bg-slate-900/90 hover:bg-slate-800 text-slate-200 p-2.5 rounded-xl border border-slate-700 shadow-xl backdrop-blur-md transition-colors flex items-center justify-center"
@@ -125,7 +116,6 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
           {isLayerMenuOpen ? <X className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
         </button>
 
-        {/* Kontainer Dropdown Peta */}
         <div className={`bg-slate-900/90 backdrop-blur-md border border-slate-700 p-2 rounded-xl shadow-2xl flex flex-col gap-1 transition-all duration-200 origin-top-right ${isLayerMenuOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'}`}>
           <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider px-2 pt-1 pb-2">Topologi</div>
           <button onClick={() => { setMapMode('topo-2d'); setIsLayerMenuOpen(false); }} className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold transition-all ${mapMode === 'topo-2d' ? 'bg-[#1E3A8A] text-white shadow-md' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}>
@@ -145,13 +135,6 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
         </div>
       </div>
 
-      <Map
-        ref={mapRef}
-        mapLib={maplibregl}
-        initialViewState={{ longitude: initialLongitude, latitude: initialLatitude, zoom: 13, pitch: 65, bearing: 0 }}
-        mapStyle={currentStyle}
-        style={{ width: '100%', height: '100%' }}
-      >
         <NavigationControl position="bottom-right" visualizePitch={true} />
         
         {geoJsonRoute && (
@@ -160,7 +143,6 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
           </Source>
         )}
 
-        {/* 1. PENANDA START */}
         {startPoint && (
           <Marker longitude={Number(startPoint.lon)} latitude={Number(startPoint.lat)} anchor="bottom" offset={[0, -8]}>
             <div className="flex flex-col items-center pointer-events-none drop-shadow-md">
@@ -171,7 +153,6 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
           </Marker>
         )}
 
-        {/* 2. PENANDA FINISH */}
         {endPoint && (
           <Marker longitude={Number(endPoint.lon)} latitude={Number(endPoint.lat)} anchor="bottom" offset={[0, -8]}>
             <div className="flex flex-col items-center pointer-events-none drop-shadow-md">
@@ -182,7 +163,6 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
           </Marker>
         )}
 
-        {/* 3. POINTER HOVER DARI GRAFIK */}
         {hoveredPoint?.lat && hoveredPoint?.lon && (
           <Marker 
             longitude={Number(hoveredPoint.lon)} 
