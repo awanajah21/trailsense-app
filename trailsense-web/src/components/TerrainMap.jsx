@@ -4,6 +4,9 @@ import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl/mapl
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
 
+// Bypass bundler Vite dengan memanggil worker langsung dari CDN Unpkg
+maplibregl.workerUrl = 'https://unpkg.com/maplibre-gl/dist/maplibre-gl-worker.js';
+
 export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId }) {
   const mapRef = useRef();
   const [mapMode, setMapMode] = useState('topo-3d');
