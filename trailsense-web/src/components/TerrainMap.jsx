@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import maplibregl from 'maplibre-gl'; // <--- TARUH DI SINI
 import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
@@ -143,6 +144,7 @@ export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId })
 
       <Map
         ref={mapRef}
+        mapLib={maplibregl}
         initialViewState={{ longitude: initialLongitude, latitude: initialLatitude, zoom: 13, pitch: 65, bearing: 0 }}
         mapStyle={currentStyle}
         style={{ width: '100%', height: '100%' }}
