@@ -3,6 +3,13 @@ import Map, { NavigationControl, Source, Layer, Marker } from 'react-map-gl/mapl
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { Layers, Mountain, Map as MapIcon, X } from 'lucide-react';
 
+// TAMBAHAN BARU
+import { setWorkerUrl } from 'maplibre-gl';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+
+// KONFIGURASI WORKER MAPLIBRE
+setWorkerUrl(workerUrl);
+
 export default function TerrainMap({ routeData, hoveredPoint, activeSegmentId }) {
   const mapRef = useRef();
   const [mapMode, setMapMode] = useState('topo-3d');
