@@ -6,7 +6,7 @@ import {
   Settings,
   ShieldCheck,
   Heart,
-  Globe,
+  Globe, 
   Menu,
   X,
   GitBranch,
@@ -32,7 +32,11 @@ export default function HomePage({
       <nav className="h-[72px] border-b border-slate-700/50 sticky top-0 z-50 bg-[#1E3A8A] shadow-md relative">
         <div className="w-full max-w-6xl mx-auto px-4 sm:px-8 h-full flex items-center justify-between">
           <div className="flex items-center gap-3 cursor-pointer">
-            <Map className="w-6 h-6 text-white" />
+            <img
+    src="/logo.png"
+    alt="Logo TrailSense"
+    className="w-7 h-7 object-contain rounded-md"
+  />
             <a href="#" className="text-xl font-bold tracking-tight text-white">
               TrailSense
             </a>
