@@ -430,7 +430,11 @@ export default function HomePage({
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2 text-white">
-              <Map className="w-6 h-6 text-[#1E3A8A]" />
+              <img
+    src="/favicon.png"
+    alt="Logo TrailSense"
+    className="w-7 h-7 object-contain rounded-md"
+  />
               <span className="text-xl font-bold">TrailSense</span>
             </div>
 
